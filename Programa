@@ -3,18 +3,42 @@ Descripción: Juego Matriz Aritmética - Proyecto Final Progra I
 Programadores: David Mayen - 202308035, Mariano Norato - 202308068, Mario Rodríguez - 202307029
 Fecha: 05/06/2023
 """
-
 #Importando Bibliotecas
 import tkinter as tk
 
+#Definiendo tipografía
+titulo = "Fixedsys 25"
+letra = "Fixedsys 10"
+
+#Definiendo Colores
+fondo = "#FF5F5F"
+
+"""
+Salmón claro: #FF6D6D 
+Salmón fuerte: #FF5F5F
+"""
 
 #Creando Pantalla de inicio
 menuinicio = tk.Tk()
 menuinicio.title("Inicio")
 
+#Generando Lienzo
+canvasinicio = tk.Canvas(menuinicio, width=600, height=500)
+canvasinicio.configure(bg=fondo)
+canvasinicio.pack()
+
 #Generando Pantalla de inico
-lienzoinicio = tk.Canvas(menuinicio, width=400, height=400)
-lienzoinicio.configure(bg="#D2F8BB")
-lienzoinicio.pack()
+
+#Creando Encabezado
+etimatriz = tk.Label(canvasinicio,text="M A T R I Z", font = titulo, bg = fondo, fg="white")
+etimatriz.place(x = 167 , y = 10)
+etiaritmetica = tk.Label(canvasinicio,text="A R I T M E T I C A", font = titulo, bg = fondo, fg="white")
+etiaritmetica.place(x = 72 , y = 60)
 
 menuinicio.mainloop()
+
+"""#Solicitando datos para crear tablero
+n = input("Ingresa las dimensiones de la Matriz N x N: ")
+if(n>=3):
+    ventana = tk.Tk()
+""" 

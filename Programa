@@ -1,1 +1,20 @@
+"""
+Descripción: Juego Matriz Aritmética - Proyecto Final Progra I
+Programadores: David Mayen - 202308035, Mariano Norato - 202308068, Mario Rodríguez - 202307029
+Fecha: 05/06/2023
+"""
 
+#Importando Bibliotecas
+import tkinter as tk
+
+
+#Creando Pantalla de inicio
+menuinicio = tk.Tk()
+menuinicio.title("Inicio")
+
+#Generando Pantalla de inico
+lienzoinicio = tk.Canvas(menuinicio, width=400, height=400)
+lienzoinicio.configure(bg="#D2F8BB")
+lienzoinicio.pack()
+
+menuinicio.mainloop()

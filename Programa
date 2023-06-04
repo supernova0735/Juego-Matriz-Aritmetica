@@ -8,15 +8,31 @@ import tkinter as tk
 
 #Definiendo tipografía
 titulo = "Fixedsys 25"
-letra = "Fixedsys 10"
-
+letra = "Fixedsys 16"
+colorletrafondo = "white"
+colorletracaja = "#616161"
 #Definiendo Colores
 fondo = "#FF5F5F"
-
+colorcajas = "#F2F2F2"
 """
 Salmón claro: #FF6D6D 
 Salmón fuerte: #FF5F5F
 """
+
+#DEFINIENDO FUNCIONES OPERACIONALES
+
+#Crear Partida
+def crearpartida(jugador1, jugador2, size, turnos):
+    #Definiendo errores
+    etierror = tk.Label(canvasinicio, text="ERROR", font=titulo, fg=colorletrafondo, bg=fondo)
+    etivacio = tk.Label(canvasinicio, text="Asegúrese de llenar todos los campos", font=letra, fg=colorletrafondo, bg=fondo)
+    etienteros = tk.Label(canvasinicio, text="Tablero y Turnos deben números", font=letra, fg=colorletrafondo, bg=fondo)
+    #Validando datos para crear partida
+    if not jugador1 or not jugador2 or not size or not turnos or not size.isdigit() or not turnos.isdigit():
+        etierror.place(x=375,y=170)
+        etivacio.place(x=290,y=235)
+        etienteros.place(x=313,y=275)
+
 
 #Creando Pantalla de inicio
 menuinicio = tk.Tk()
@@ -29,16 +45,42 @@ canvasinicio.pack()
 
 #Generando Pantalla de inico
 
-#Creando Encabezado
-etimatriz = tk.Label(canvasinicio,text="M A T R I Z", font = titulo, bg = fondo, fg="white")
+#ENCABEZADOS BIENVENIDA
+etimatriz = tk.Label(canvasinicio,text="M A T R I Z", font = titulo, bg = fondo, fg=colorletrafondo)
 etimatriz.place(x = 167 , y = 10)
-etiaritmetica = tk.Label(canvasinicio,text="A R I T M E T I C A", font = titulo, bg = fondo, fg="white")
+etiaritmetica = tk.Label(canvasinicio,text="A R I T M E T I C A", font = titulo, bg = fondo, fg=colorletrafondo)
 etiaritmetica.place(x = 72 , y = 60)
+etiencabezadoinfo = tk.Label(canvasinicio, text = "CONFIGURA LA PARTIDA", font = letra, bg=fondo, fg = colorletrafondo)
+etiencabezadoinfo.place(x = 20, y = 140)
+
+#CONFIGURACIÓN DE LA PARTIDA
+#Etiqueta Jugador 1
+etinombrejugador1 = tk.Label(canvasinicio, text = "JUGADOR 1:", font = letra, bg=fondo, fg = colorletrafondo)
+etinombrejugador1.place(x = 20, y = 175)
+#Caja de Texto Jugador 1
+text1jugador1 = tk.Entry(canvasinicio, font=letra, fg=colorletracaja, bg=colorcajas, width=30)
+text1jugador1.place(x = 20, y = 210)
+#Etiqueta Jugador 2
+etinombrejugador2 = tk.Label(canvasinicio, text = "JUGADOR 2:", font = letra, bg=fondo, fg = colorletrafondo)
+etinombrejugador2.place(x = 20, y = 250)
+#Caja de Texto Jugador 2
+text1jugador2 = tk.Entry(canvasinicio, font=letra, fg=colorletracaja, bg=colorcajas, width=30)
+text1jugador2.place(x = 20, y = 285)
+#Etiqueta Tablero
+etitablero = tk.Label(canvasinicio, text = "TAMAÑO N DEL TABLERO (N x N):", font = letra, bg = fondo, fg = colorletrafondo)
+etitablero.place(x = 20, y = 325)
+#Caja de Texto Tablero
+text1tablero = tk.Entry(canvasinicio, font=letra, fg=colorletracaja, bg=colorcajas, width=30)
+text1tablero.place(x = 20, y = 360)
+#Etiqueta Turnos
+etiturnos = tk.Label(canvasinicio, text = "TURNOS PERMITIDOS:", font = letra, bg = fondo, fg = colorletrafondo)
+etiturnos.place(x = 20, y = 400)
+#Caja de Texto Turnos
+text1turnos = tk.Entry(canvasinicio, font=letra, fg=colorletracaja, bg=colorcajas, width=30)
+text1turnos.place(x = 20, y = 435)
+
+#BOTON CREAR PARTIDA
+boton1crear = tk.Button(canvasinicio, padx = 50, pady = 25,font=letra, fg=colorletracaja, text="CREAR PARTIDA", command= lambda: crearpartida(text1jugador1.get(),text1jugador2.get(),text1tablero.get(),text1turnos.get()))
+boton1crear.place(x = 330, y = 335)
 
 menuinicio.mainloop()
-
-"""#Solicitando datos para crear tablero
-n = input("Ingresa las dimensiones de la Matriz N x N: ")
-if(n>=3):
-    ventana = tk.Tk()
-""" 

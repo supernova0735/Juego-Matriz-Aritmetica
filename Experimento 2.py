@@ -67,6 +67,8 @@ def mostrar_numeros_vecinos(fila, columna):
                     info = widget.grid_info()
                     if info["row"] == i and info["column"] == j:
                         widget.configure(state=tk.NORMAL)
+                        numerovecino = random.randint(1, 100)
+                        widget.configure(text=str(numerovecino))
 
 def iniciarcronometro():
     global tiemporestante

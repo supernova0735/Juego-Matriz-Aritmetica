@@ -1,0 +1,72 @@
+import time
+import tkinter as tk
+
+class CronometroGUI:
+    def _init_(self, jugadores):
+        self.jugadores = jugadores
+        self.turno_actual = 0
+        self.tiempos_jugadores = {jugador: [] for jugador in jugadores}
+        self.inicio_turno = None
+
+        self.root = tk.Tk()
+        self.root.title("Cronómetro de Turnos")
+        
+        self.label_turno = tk.Label(self.root, text=f"Turno del jugador: {self.jugadores[self.turno_actual]}")
+        self.label_turno.pack()
+        
+        self.label_tiempo = tk.Label(self.root, text="Tiempo transcurrido: 00:20")
+        self.label_tiempo.pack()
+        
+        self.button_iniciar = tk.Button(self.root, text="Iniciar Turno", command=self.iniciar_turno)
+        self.button_iniciar.pack()
+        
+        self.button_finalizar = tk.Button(self.root, text="Finalizar Turno", state=tk.DISABLED, command=self.finalizar_turno)
+        self.button_finalizar.pack()
+        
+    def iniciar_turno(self):
+        self.inicio_turno = time.time()
+        self.button_iniciar.config(state=tk.DISABLED)
+        self.button_finalizar.config(state=tk.NORMAL)
+        
+        self.actualizar_cronometro()
+        
+    def finalizar_turno(self):
+        tiempo_transcurrido = time.time() - self.inicio_turno
+        self.tiempos_jugadores[self.jugadores[self.turno_actual]].append(tiempo_transcurrido)
+        
+        self.siguiente_turno()
+        self.iniciar_turno()
+        
+    def siguiente_turno(self):
+        self.turno_actual = (self.turno_actual + 1) % len(self.jugadores)
+        self.label_turno.config(text=f"Turno del jugador: {self.jugadores[self.turno_actual]}")
+        
+    def actualizar_cronometro(self):
+        if self.inicio_turno:
+            tiempo_transcurrido = 20 - (time.time() - self.inicio_turno)
+            if tiempo_transcurrido >= 0:
+                segundos = int(tiempo_transcurrido)
+                self.label_tiempo.config(text=f"Tiempo transcurrido: 00:{segundos:02d}")
+            else:
+                self.finalizar_turno()
+        
+        self.root.after(1000, self.actualizar_cronometro)
+        
+    def iniciar_gui(self):
+        self.root.mainloop()
+
+try:
+    jugadores = ["Jugador 1", "Jugador 2"]
+    
+    gui = CronometroGUI(jugadores)
+    gui.iniciar_gui()
+    
+    print("Tiempos de los jugadores:")
+    for jugador, tiempos in gui.tiempos_jugadores.items():
+        print(f"Jugador {jugador}:")
+        for i, tiempo in enumerate(tiempos, start=1):
+            segundos = int(tiempo)
+            print(f"Turno {i}: 00:{segundos:02d}")
+
+except KeyboardInterrupt:
+    print("\nCronómetro detenido.")

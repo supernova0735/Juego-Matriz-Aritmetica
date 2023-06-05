@@ -52,27 +52,32 @@ def crearpartida(jugador1, jugador2, size, turnos):
         etivacio.place(x=290,y=235)
         etienteros.place(x=313,y=275)
     else:
+        if(turno%2==0):
+            jugadoractual = jugador2
+        if(turno%2!=0):
+            jugadoractual = jugador1
         size = int(size)
         turnos = int(turnos)
         #Creando ventana para el programa
         tablero = tk.Tk()
         tablero.title("MATRIZ ARITMETICA")
+        canvastablero = tk.Canvas(tablero)
+        etiturno = tk.Label(canvastablero, font=letra, fg=colorletrafondo, bg=fondo,text="Turno de: "+jugadoractual)
         #Creando canvas
         if(size<=13):
-            canvastablero = tk.Canvas(tablero, width=400, height=450)
-            canvastablero.configure(bg=fondo)
+            canvastablero.configure(bg=fondo, width=500, height=450)
             canvastablero.pack()
             #Etiquetas de encabezado que muestran los punteos por jugador
             etijugador1 = tk.Label(canvastablero, text=jugador1 + f": {puntos1}", bg=fondo, fg=colorletrafondo, font=letra)
             etijugador1.place(x=13, y=10)
             etijugador2 = tk.Label(canvastablero, text=jugador2 + f": {puntos2}", bg=fondo, fg=colorletrafondo, font=letra)
-            etijugador2.place(x=310, y=10)
+            etijugador2.place(x=410, y=10)
             #Etiqueta que muestra el nombre del juego
             etiencabezado = tk.Label(canvastablero, text="MATRIZ ARITMÉTICA", font=letra, bg=fondo, fg=colorletrafondo)
-            etiencabezado.place(x=132, y=10)
+            etiencabezado.place(x=180, y=10)
             #Definiendo el Frame del tablero
             tableroframe = tk.Frame(canvastablero, bg=colorcajas)
-            tableroframe.place(x=(205-(12*size)), y=100)
+            tableroframe.place(x=(255-(12*size)), y=100)
             #CREANDO BOTONES DE JUEGO
             boton21=tk.Button(canvastablero, text=f"{opcion1}", font=letra,bg=colorcajas,fg=colorletracaja,padx=15,pady=7)
             boton21.place(x=20,y=50)
@@ -82,9 +87,11 @@ def crearpartida(jugador1, jugador2, size, turnos):
             boton23.place(x=160,y=50)
             boton24=tk.Button(canvastablero, text=f"{opcion4}", font=letra,bg=colorcajas,fg=colorletracaja,padx=15,pady=7)
             boton24.place(x=230,y=50)
+            #Etiqueta turnos
+            etiturno.place(x=320,y=60)
+           
         else:
-            canvastablero = tk.Canvas(tablero, width=800, height=650)
-            canvastablero.configure(bg=fondo)
+            canvastablero.configure(bg=fondo, width=800, height=650)
             canvastablero.pack()
             #Etiquetas de encabezado que muestran los punteos por jugador
             etijugador1 = tk.Label(canvastablero, text=jugador1 + f": {puntos1}", bg=fondo, fg=colorletrafondo, font=letra)
@@ -106,6 +113,8 @@ def crearpartida(jugador1, jugador2, size, turnos):
             boton23.place(x=310,y=50)
             boton24=tk.Button(canvastablero, text=f"{opcion4}", font=letra,bg=colorcajas,fg=colorletracaja,padx=15,pady=7)
             boton24.place(x=380,y=50)
+            #Etiqueta turnos
+            etiturno.place(x=500,y=60)
 
         etitemporizador = tk.Label(tablero, text=f"Tiempo restante: {tiemporestante}")
         etitemporizador.pack()
@@ -182,6 +191,7 @@ def crearpartida(jugador1, jugador2, size, turnos):
                 boton23.configure(text=f"{valorrandom3}", command=lambda: puntos(valorrandom3))
             
         def puntos(decision):
+            decision = int(decision)
             if(decision==resultado) and (turno%2==0):
                 puntos2+=3
                 turno+=1
@@ -190,7 +200,22 @@ def crearpartida(jugador1, jugador2, size, turnos):
                 turno+=1
             else:
                 turno+=1
-
+            #Actualizando Marcador
+            if(size<=13):
+                etijugador1.configure(text=jugador1+f": {puntos1}")
+                etijugador1.place(x=13, y=10)
+                etijugador2.configure(text=jugador2+f": {puntos2}")
+                etijugador2.place(x=410, y=10)
+                etiturno.configure(text="Turno de: "+jugadoractual)
+                etiturno.place(x=320,y=60)
+            else:
+                etijugador1.configure(text=jugador1+f": {puntos1}")
+                etijugador1.place(x=20, y=10)
+                etijugador2.configure(text=jugador2+f": {puntos2}")
+                etijugador2.place(x=700, y=10)
+                etiturno.configure(text="Turno de: "+jugadoractual)
+                etiturno.place(x=500,y=60)
+                
         def iniciartemporizador():
             global tiemporestante
             if tiemporestante > 0:
